@@ -47,6 +47,7 @@
 			if (keepWrapAtOrigin) {
 				targetWrapper = baseElement;
 				baseElement = targetWrapper.cloneNode(true);
+				document.createElement('div').appendChild(baseElement);
 				baseElement.outerHTML = targetWrapper.outerHTML;
 				targetWrapper.innerHTML = '';
 			} else {
