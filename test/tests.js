@@ -123,6 +123,21 @@ QUnit.test( "test attribute manipulation", function( assert ) {
 });
 
 QUnit.test( "test attribute manipulation", function( assert ) {
+    var t = tie.createTemplateFrom('#newClass');
+    t.bindClass('span', 'moreClasses');
+
+    //some data to show
+    var data = {
+        moreClasses : 'foo bar'
+    };
+
+    assert.equal(t.render(data), '<div id="newClass"><span class="foo bar"></span></div>');
+
+    data.moreClasses = ['this', 'that'];
+    assert.equal(t.render(data), '<div id="newClass"><span class="this that"></span></div>');
+});
+
+QUnit.test( "test attribute manipulation", function( assert ) {
 	var t = tie.createTemplateFrom('#addClass');
 	t.bindClass('.item', 'moreClasses');
 
