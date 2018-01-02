@@ -1,8 +1,9 @@
 (function(window, document) {
-	var tieTemplate = function (templateSelector) {
+	var tieTemplate = function (templateSelector, keepWrapAtOrigin) {
 
 		var bindings = [];
 		var baseElement;
+		var targetWrapper = undefined;
 		var htmlOriginalTemplate = "";
 		var markerPrefix = "✂";
 		var markerPostfix = "⚑";
@@ -43,8 +44,15 @@
 			}
 
 			//remove baseElement from DOM
-			if (baseElement.parentNode) {
-				baseElement.parentNode.removeChild(baseElement);
+			if (keepWrapAtOrigin) {
+				targetWrapper = baseElement;
+				baseElement = targetWrapper.cloneNode(true);
+				baseElement.outerHTML = targetWrapper.outerHTML;
+				targetWrapper.innerHTML = '';
+			} else {
+				if (baseElement.parentNode) {
+					baseElement.parentNode.removeChild(baseElement);
+				}
 			}
 
 			htmlOriginalTemplate = baseElement.outerHTML;
@@ -262,7 +270,11 @@
 
 		this.render = function (data) {
 			this.prepareTemplate();
-			return renderTemplate(data);
+			var html = renderTemplate(data);
+			if (targetWrapper !== undefined) {
+				targetWrapper.outerHTML = html;
+			}
+			return html;
 		};
 
 		init();
@@ -273,9 +285,14 @@
 	console.log(window);
 
 	window.tie = {
-		createTemplate : function(templateSelector){
+		createTemplateFrom : function(templateSelector){
 			return new tieTemplate(templateSelector);
+		},
+
+		createTemplateAt : function(templateSelector){
+			return new tieTemplate(templateSelector, true);
 		}
+
 	};
 
 })(window, document);
