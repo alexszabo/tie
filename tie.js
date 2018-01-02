@@ -77,9 +77,11 @@
 				if (binding.attr) {
 					var attrValue = binding.marker;
 					if (binding.attrAppendMode) {
-						attrValue = location.getAttribute(binding.attr)
-							+ binding.attrAppendMode
-							+ binding.marker;
+						attrValue = location.getAttribute(binding.attr) || '';
+						if (attrValue !== '') {
+							attrValue += binding.attrAppendMode;
+						}
+						attrValue += binding.marker;
 					}
 					location.setAttribute(binding.attr, attrValue);
 				} else {
