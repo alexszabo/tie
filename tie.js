@@ -110,7 +110,7 @@
 
 					parts.splice(p, 1); //remove old
 
-					var leftList = parts.slice(0, p - 1);
+					var leftList = parts.slice(0, p);
 					var rightList = parts.slice(p + 1, parts.length - 1);
 					parts = leftList.concat(newParts).concat(rightList);
 				}
@@ -202,7 +202,7 @@
 				.replace(/"/g, '&quot;')
 				.replace(/</g, '&lt;')
 				.replace(/>/g, '&gt;');
-		}
+		};
 
 		this.bindAttr = function (selector, attrName, bind) {
 			var binding = {
