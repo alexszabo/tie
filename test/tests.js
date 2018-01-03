@@ -43,6 +43,25 @@ QUnit.test( "test encoded binding", function( assert ) {
     assert.equal(resultHtml, '<div id="simple">Hello, <span>&lt;i&gt;Peter&lt;/i&gt;</span>!</div>');
 });
 
+QUnit.test( "test binding more data", function( assert ) {
+	//creating template and binding
+	var t = tie.createTemplateFrom('#simple-more');
+	t.bindHtml('u', 'u');
+	t.bindHtml('i', 'i');
+
+	//some data to show
+	var data = {
+		u: "uniform",
+		i: "india"
+	};
+
+	//run the template rendering
+	var resultHtml = t.render(data);
+
+	//check the result
+	assert.equal(resultHtml, '<div id="simple-more"><u>uniform</u><i>india</i></div>');
+});
+
 
 QUnit.test( "test creating template removes elements", function( assert ) {
     //creating template and binding
