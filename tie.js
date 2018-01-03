@@ -10,6 +10,7 @@
 		var latestMarkerNumber = 1000;
 		var isPrepared = false;
 		var templateParts = [];
+		var self = this;
 
 		var isDomElement = function (element) {
 			if (typeof HTMLElement === "object") {
@@ -173,6 +174,7 @@
 			};
 			bindings.push(binding);
 			markBinding(binding);
+			return self;
 		};
 
 		this.bindText = function (selector, bind) {
@@ -190,9 +192,10 @@
 			};
 			bindings.push(binding);
 			markBinding(binding);
+			return self;
 		};
 
-		function quoteAttribute(value) {
+		var quoteAttribute = function(value) {
 			return String(value)
 				.replace(/&/g, '&amp;')
 				.replace(/'/g, '&apos;')
@@ -214,6 +217,7 @@
 			};
 			bindings.push(binding);
 			markBinding(binding);
+			return self;
 		};
 
 		this.bindClass = function (selector, bind) {
@@ -233,6 +237,7 @@
 			};
 			bindings.push(binding);
 			markBinding(binding);
+			return self;
 		};
 
 		this.loop = function (selector, bind) {
@@ -284,8 +289,6 @@
 
 		return this;
 	};
-
-	console.log(window);
 
 	window.tie = {
 		createTemplateFrom : function(templateSelector){
